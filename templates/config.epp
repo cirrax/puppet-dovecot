@@ -1,0 +1,9 @@
+<%- | Hash $values,
+      Integer $trim
+| -%>
+<% include stdlib -%>
+<% $values.keys.sort.each | $key | { -%>
+<% if $key != 'sections' { -%>
+<%= String('', "%${trim}s") %><%= $key %> = <%= $values[$key] %>
+<% } -%>
+<% } -%>
