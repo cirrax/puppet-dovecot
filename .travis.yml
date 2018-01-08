@@ -1,0 +1,31 @@
+---
+sudo: false
+language: ruby
+bundler_args: --without development system_tests
+before_install: rm Gemfile.lock || true
+rvm:
+        - 1.9.3
+        - 2.1.0
+script: bundle exec rake test
+env:
+        - PUPPET_GEM_VERSION="~> 4.0" STRICT_VARIABLES=yes
+        - PUPPET_GEM_VERSION="~> 5.0" STRICT_VARIABLES=yes DEPLOY_TO_FORGE=yes
+      
+matrix:
+        exclude:
+                - rvm: 1.9.3
+                  env: PUPPET_GEM_VERSION="~> 4.0" STRICT_VARIABLES=yes
+                - rvm: 1.9.3
+                  env: PUPPET_GEM_VERSION="~> 5.0" STRICT_VARIABLES=yes DEPLOY_TO_FORGE=yes
+
+deploy:
+        provider: puppetforge
+        user: cirrax
+        password:
+                secure: iJm6M8NNngj8HiGj3rDkGuZyoGLEjv3plCC7S5kJnaCVVRzQ7TqQCUTCnkYm1gHkHwtWaEA3De24CUGd1msECUVlQZ7pHRa+0kydc3k/ojWLp5j0pqe+tdIozAGnNKTIQqAzlFHT8xKEC0OZ5yXKS87vcd65cYJci1tijMvhuJNYZ8rMXVZDfUvE20tw50g9SzfECkj1Fq6wwfTWosmskQo81swDeVEcyNyT+0xK1rKEKb83Xr+Ql0oGLhxvO8RDjecYqoqYxrvs4Onkz2gMYS06ngp8kcaO6e/MTkP5a7ujmU8IlZehhFoWlGBm97D+PAlFLIZeyIKqIwlOXxBcJlJE1A5dA/g7t8gHe8FC9HJpQhpi/2YPSA49hFqbOQe6hryq9V0YBUrA/iW22g9e/Ewf0fhOamezGiCr1/k5wPwz0t3isGNZAOdoGHRh+B39SCbz2pYE5W9aQoIyKR2tB2E4HtcKcIiq5GU54EF55X62nEy1bEQGFEcYXEBa7DJ9u/vovDY5bGY/cRC0+kxKX5DhBCjR2ocw6CiZDHTRE8I9mBpcgMj8DcMisVtVadEdNDTzPwfVKt6AYyBMjABkw4LNRHmUllDeMM1g2Dnm/9zP+0uwBspP5u3JUn6WSNEYYYaToFlp2GgHC/IBD2VzUrLL5iodt8j9zkeh8s/Dfzo=
+        on:
+            tags: true
+            # all_branches is required to use tags
+            all_branches: true
+            # Only publish the build marked with "DEPLOY_TO_FORGE"
+            condition: "$DEPLOY_TO_FORGE = yes"
