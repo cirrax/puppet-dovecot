@@ -14,6 +14,7 @@ describe 'dovecot' do
         :group              => 'root',
         :mode               => '0644',
         :include_sysdefault => true,
+	:create_resources   => {},
       }
   end
 
@@ -153,4 +154,19 @@ describe 'dovecot' do
 
     it { is_expected.to_not contain_concat__fragment('dovecot: include system defaults') }
   end
+
+  context 'without with additional resources to create ' do
+    let :params do
+      default_params.merge( 
+        :create_resources => { 'file' => { '/tmp/blah' => { 'ensure' => 'directory' }}} ,
+      )
+    end
+    it_behaves_like 'dovecot shared examples'
+
+    it { is_expected.to contain_file('/tmp/blah')
+      .with_ensure('directory')
+    }
+
+  end
+
 end

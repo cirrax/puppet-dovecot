@@ -33,6 +33,24 @@
 #    in the main configuration file is added to 
 #    include the system defaults before the local
 #    configuration.
+#  $create_resources
+#    a Hash of Hashes to create additional resources eg. to
+#    retrieve a certificate.
+#    Defaults to {} (do not create any additional resources)
+#    Example (hiera):
+#
+#    dovecot::create_resources:
+#        sslcert::get_cert:
+#            get_my_dovecot_cert:
+#              private_key_path: '/etc/dovecot/ssl/key.pem'
+#              cert_path: '/etc/dovecot/ssl/cert.pem'
+#
+#    Will result in  executing:
+#
+#    sslcert::get_cert{'get_my_postfix_cert':
+#      private_key_path => "/etc/dovecot/ssl/key.pem"
+#      cert_path        => "/etc/dovecot/ssl/cert.pem"
+#    }
 #
 class dovecot (
   $main_config        = {},
@@ -44,6 +62,7 @@ class dovecot (
   $group              = $dovecot::params::group,
   $mode               = $dovecot::params::mode,
   $include_sysdefault = true,
+  $create_resources   = {},
 ) inherits dovecot::params {
 
   file{ "${config_path}/${local_configdir}":
@@ -87,6 +106,11 @@ class dovecot (
       content => '!include conf.d/*',
       order   => '00',
     }
+  }
+
+  # create generic resources (eg. to retrieve certificate)
+  $create_resources.each | $res, $vals | {
+    create_resources($res, $vals )
   }
 }
 
