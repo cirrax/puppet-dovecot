@@ -29,15 +29,15 @@
 #    see ::dovecot for more information
 #
 define dovecot::configfile (
-  $path,
-  $owner,
-  $group,
-  $mode,
-  $local_configdir,
-  $include_in      = '',
-  $filename        = $title,
-  $values          = {},
-  $sections        = [],
+  String $path,
+  String $owner,
+  String $group,
+  String $mode,
+  String $local_configdir,
+  String $include_in      = '',
+  String $filename        = $title,
+  Hash   $values          = {},
+  Array[Hash] $sections        = [],
 ) {
 
   concat { "${path}/${filename}":

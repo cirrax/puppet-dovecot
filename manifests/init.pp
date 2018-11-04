@@ -53,16 +53,16 @@
 #    }
 #
 class dovecot (
-  $main_config        = {},
-  $configs            = {},
-  $main_config_file   = $dovecot::params::main_config_file,
-  $config_path        = $dovecot::params::config_path,
-  $local_configdir    = $dovecot::params::local_configdir,
-  $owner              = $dovecot::params::owner,
-  $group              = $dovecot::params::group,
-  $mode               = $dovecot::params::mode,
-  $include_sysdefault = true,
-  $create_resources   = {},
+  Hash    $main_config        = {},
+  Hash    $configs            = {},
+  String  $main_config_file   = $dovecot::params::main_config_file,
+  String  $config_path        = $dovecot::params::config_path,
+  String  $local_configdir    = $dovecot::params::local_configdir,
+  String  $owner              = $dovecot::params::owner,
+  String  $group              = $dovecot::params::group,
+  String  $mode               = $dovecot::params::mode,
+  Boolean $include_sysdefault = true,
+  Hash    $create_resources   = {},
 ) inherits dovecot::params {
 
   file{ "${config_path}/${local_configdir}":

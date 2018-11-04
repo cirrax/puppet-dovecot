@@ -22,11 +22,11 @@
 #    see ::dovecot for more information
 #
 define dovecot::config (
-  $file      = $title,
-  $recursion = '0',
-  $trim      = 0,
-  $values    = {},
-  $sections  = [],
+  String  $file      = $title,
+  String  $recursion = '0',
+  Integer $trim      = 0,
+  Hash    $values    = {},
+  Array[Hash]   $sections  = [],
 ) {
 
   # this fragment handles all non Hash values
@@ -41,7 +41,7 @@ define dovecot::config (
 
   # if we have sections, we need to recurse (to have sections in sections !)
   $_trim = String('', "%${trim}s")
-  $sections.each | $index, $section | {
+  $sections.each | Integer $index, Hash $section | {
     concat::fragment { "dovecot: ${file} ${recursion} ${index} start":
       target  => $file,
       content => "${_trim}${section['name']} {",

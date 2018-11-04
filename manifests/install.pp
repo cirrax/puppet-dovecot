@@ -10,8 +10,8 @@
 #    Defaults to 'installed'
 #
 class dovecot::install (
-  $packages         = $dovecot::params::packages,
-  $package_ensure   = 'installed',
+  Array  $packages       = $dovecot::params::packages,
+  String $package_ensure = 'installed',
 ) inherits dovecot::params {
 
   package { $packages:
