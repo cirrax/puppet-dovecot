@@ -75,12 +75,12 @@ describe 'dovecot::configfile' do
 	      :mode            => '4242',
 	      :local_configdir => 'conf.d',
 	      :filename        => title,
-	      :sections        => { 'mysec' => {}},
+	      :sections        => [ { "mysec" => {} } ],
 	    }
     end
     it_behaves_like 'dovecot::configfile shared examples'
     it { is_expected.to contain_dovecot__config( params[:filename] )
-      .with_sections('{"mysec"=>{}}')
+      .with_sections([ {"mysec"=>{}} ])
     }
   end
 
