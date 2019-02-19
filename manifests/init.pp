@@ -65,6 +65,8 @@ class dovecot (
   Hash    $create_resources   = {},
 ) inherits dovecot::params {
 
+  Class['::dovecot::install'] -> ::Dovecot::Configfile <||>
+
   file{ "${config_path}/${local_configdir}":
     ensure => 'directory',
     owner  => $owner,
