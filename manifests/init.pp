@@ -68,10 +68,11 @@ class dovecot (
   Class['::dovecot::install'] -> ::Dovecot::Configfile <||>
 
   file{ "${config_path}/${local_configdir}":
-    ensure => 'directory',
-    owner  => $owner,
-    group  => $group,
-    mode   => '0755',
+    ensure  => 'directory',
+    owner   => $owner,
+    group   => $group,
+    mode    => '0755',
+    require => Class['::dovecot::install'],
   }
 
   $main_file_defaults = {
@@ -112,7 +113,7 @@ class dovecot (
 
   # create generic resources (eg. to retrieve certificate)
   $create_resources.each | $res, $vals | {
-    create_resources($res, $vals )
+    create_resources($res, $vals, { 'require' => Class['dovecot::install'] } )
   }
 }
 
