@@ -19,23 +19,28 @@ describe 'dovecot::install' do
       end
     }
   end
+  on_supported_os.each do |os, os_facts|
+    context "on #{os}" do
+      let(:facts) { os_facts }
 
-  context 'with defaults' do
-    let :params do
-      default_params
+      context 'with defaults' do
+        let :params do
+          default_params
+        end
+
+        it_behaves_like 'dovecot::install shared examples'
+      end
+
+      context 'with non  defaults' do
+        let :params do
+          default_params.merge(
+            packages: ['dovecot-whatever', 'andanother-dovecot'],
+            package_ensure: 'latest',
+          )
+        end
+
+        it_behaves_like 'dovecot::install shared examples'
+      end
     end
-
-    it_behaves_like 'dovecot::install shared examples'
-  end
-
-  context 'with non  defaults' do
-    let :params do
-      default_params.merge(
-        packages: ['dovecot-whatever', 'andanother-dovecot'],
-        package_ensure: 'latest',
-      )
-    end
-
-    it_behaves_like 'dovecot::install shared examples'
   end
 end

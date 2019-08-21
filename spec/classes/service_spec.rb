@@ -19,23 +19,29 @@ describe 'dovecot::service' do
     end
   end
 
-  context 'with defaults' do
-    let :params do
-      default_params
+  on_supported_os.each do |os, os_facts|
+    context "on #{os}" do
+      let(:facts) { os_facts }
+
+      context 'with defaults' do
+        let :params do
+          default_params
+        end
+
+        it_behaves_like 'dovecot::service shared examples'
+      end
+
+      context 'with non defaults' do
+        let :params do
+          default_params.merge(
+            ensure: 'stopped',
+            enable: false,
+            service_name: 'tocevod',
+          )
+        end
+
+        it_behaves_like 'dovecot::service shared examples'
+      end
     end
-
-    it_behaves_like 'dovecot::service shared examples'
-  end
-
-  context 'with non defaults' do
-    let :params do
-      default_params.merge(
-        ensure: 'stopped',
-        enable: false,
-        service_name: 'tocevod',
-      )
-    end
-
-    it_behaves_like 'dovecot::service shared examples'
   end
 end

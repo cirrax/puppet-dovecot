@@ -34,91 +34,97 @@ describe 'dovecot::configfile' do
     end
   end
 
-  context 'whith defaults' do
-    let(:title) { 'with_defaults' }
-    let :params do
-      { path: '/etc/dovecot',
-        owner: 'besitzer',
-        group: 'gruppe',
-        mode: '4242',
-        local_configdir: 'conf.d',
-        filename: title }
-    end
+  on_supported_os.each do |os, os_facts|
+    context "on #{os}" do
+      let(:facts) { os_facts }
 
-    it_behaves_like 'dovecot::configfile shared examples'
-  end
+      context 'whith defaults' do
+        let(:title) { 'with_defaults' }
+        let :params do
+          { path: '/etc/dovecot',
+            owner: 'besitzer',
+            group: 'gruppe',
+            mode: '4242',
+            local_configdir: 'conf.d',
+            filename: title }
+        end
 
-  context 'whith values' do
-    let(:title) { 'with_defaults' }
-    let :params do
-      { path: '/etc/dovecot',
-        owner: 'besitzer',
-        group: 'gruppe',
-        mode: '4242',
-        local_configdir: 'conf.d',
-        filename: title,
-        values: { 'myval' => 'test' } }
-    end
+        it_behaves_like 'dovecot::configfile shared examples'
+      end
 
-    it_behaves_like 'dovecot::configfile shared examples'
+      context 'whith values' do
+        let(:title) { 'with_defaults' }
+        let :params do
+          { path: '/etc/dovecot',
+            owner: 'besitzer',
+            group: 'gruppe',
+            mode: '4242',
+            local_configdir: 'conf.d',
+            filename: title,
+            values: { 'myval' => 'test' } }
+        end
 
-    it {
-      is_expected.to contain_dovecot__config(params[:filename])
-        .with_values('{"myval"=>"test"}')
-    }
-  end
+        it_behaves_like 'dovecot::configfile shared examples'
 
-  context 'with sections' do
-    let(:title) { 'with_defaults' }
-    let :params do
-      { path: '/etc/dovecot',
-        owner: 'besitzer',
-        group: 'gruppe',
-        mode: '4242',
-        local_configdir: 'conf.d',
-        filename: title,
-        sections: [{ 'mysec' => {} }] }
-    end
+        it {
+          is_expected.to contain_dovecot__config(params[:filename])
+            .with_values('{"myval"=>"test"}')
+        }
+      end
 
-    it_behaves_like 'dovecot::configfile shared examples'
-    it {
-      is_expected.to contain_dovecot__config(params[:filename])
-        .with_sections([{ 'mysec' => {} }])
-    }
-  end
+      context 'with sections' do
+        let(:title) { 'with_defaults' }
+        let :params do
+          { path: '/etc/dovecot',
+            owner: 'besitzer',
+            group: 'gruppe',
+            mode: '4242',
+            local_configdir: 'conf.d',
+            filename: title,
+            sections: [{ 'mysec' => {} }] }
+        end
 
-  context 'with filename' do
-    let(:title) { 'with_filename' }
-    let :params do
-      { path: '/etc/dovecot',
-        owner: 'besitzer',
-        group: 'gruppe',
-        mode: '4242',
-        local_configdir: 'conf.d',
-        filename: 'myfilename' }
-    end
+        it_behaves_like 'dovecot::configfile shared examples'
+        it {
+          is_expected.to contain_dovecot__config(params[:filename])
+            .with_sections([{ 'mysec' => {} }])
+        }
+      end
 
-    it_behaves_like 'dovecot::configfile shared examples'
-  end
+      context 'with filename' do
+        let(:title) { 'with_filename' }
+        let :params do
+          { path: '/etc/dovecot',
+            owner: 'besitzer',
+            group: 'gruppe',
+            mode: '4242',
+            local_configdir: 'conf.d',
+            filename: 'myfilename' }
+        end
 
-  context 'with include_in' do
-    let(:title) { 'with_include_in' }
-    let :params do
-      { path: '/etc/dovecot',
-        owner: 'besitzer',
-        group: 'gruppe',
-        mode: '4242',
-        include_in: '/include_in',
-        local_configdir: 'conf.d' }
-    end
+        it_behaves_like 'dovecot::configfile shared examples'
+      end
 
-    context 'it includes concat_fragment' do
-      it {
-        is_expected.to contain_concat_fragment('dovecot: include ' + title + ' in ' + params[:include_in])
-          .with_target(params[:include_in])
-          .with_order('01')
-          .with_content(%r{!include })
-      }
+      context 'with include_in' do
+        let(:title) { 'with_include_in' }
+        let :params do
+          { path: '/etc/dovecot',
+            owner: 'besitzer',
+            group: 'gruppe',
+            mode: '4242',
+            include_in: '/include_in',
+            local_configdir: 'conf.d' }
+        end
+
+        context 'it includes concat_fragment' do
+          it {
+            is_expected.to contain_concat_fragment('dovecot: include ' + title + ' in ' + params[:include_in])
+              .with_target(params[:include_in])
+              .with_order('01')
+              .with_content(%r{!include })
+          }
+        end
+      end
     end
   end
 end
