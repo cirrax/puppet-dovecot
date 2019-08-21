@@ -3,10 +3,9 @@ require 'spec_helper'
 
 describe 'dovecot::service' do
   let :default_params do
-      { :ensure       => 'running',
-        :enable       => true,
-        :service_name => 'dovecot',
-      }
+    { ensure: 'running',
+      enable: true,
+      service_name: 'dovecot' }
   end
 
   shared_examples 'dovecot::service shared examples' do
@@ -14,9 +13,9 @@ describe 'dovecot::service' do
 
     it 'configures dovecot service' do
       is_expected.to contain_service('dovecot')
-        .with_ensure( params[:ensure] )
-        .with_enable( params[:enable] )
-        .with_name( params[:service_name] )
+        .with_ensure(params[:ensure])
+        .with_enable(params[:enable])
+        .with_name(params[:service_name])
     end
   end
 
@@ -26,19 +25,17 @@ describe 'dovecot::service' do
     end
 
     it_behaves_like 'dovecot::service shared examples'
-
   end
 
   context 'with non defaults' do
     let :params do
-      default_params.merge( 
-        :ensure       => 'stopped',
-        :enable       => false,
-        :service_name => 'tocevod',
+      default_params.merge(
+        ensure: 'stopped',
+        enable: false,
+        service_name: 'tocevod',
       )
     end
 
     it_behaves_like 'dovecot::service shared examples'
-
   end
 end
