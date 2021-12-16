@@ -11,23 +11,17 @@
 #    Defaults to {}
 #  $main_config_file
 #    the name of the main configuration file
-#    Defaults to $dovecot::params::main_config_file
 #  $config_path
 #    the path where the configuration is.
-#    Defaults to $dovecot::params::config_path
 #  $local_configdir
 #    the name of a directory to put local
 #    configuration files
-#    Defaults to $dovecot::params::local_configdir
 #  $owner
 #    owner of the configuration files
-#    Defaults to $dovecot::params::owner
 #  $group
 #    group of the configuration files
-#    Defaults to $dovecot::params::group
 #  $mode
 #    mode of the configuration files
-#    Defaults to $dovecot::params::mode
 #  $include_sysdefault = true,
 #    if true (the default) an include statement
 #    in the main configuration file is added to 
@@ -55,15 +49,15 @@
 class dovecot (
   Hash    $main_config        = {},
   Hash    $configs            = {},
-  String  $main_config_file   = $dovecot::params::main_config_file,
-  String  $config_path        = $dovecot::params::config_path,
-  String  $local_configdir    = $dovecot::params::local_configdir,
-  String  $owner              = $dovecot::params::owner,
-  String  $group              = $dovecot::params::group,
-  String  $mode               = $dovecot::params::mode,
+  String  $main_config_file   = 'dovecot.conf',
+  String  $config_path        = '/etc/dovecot',
+  String  $local_configdir    = 'conf.d',
+  String  $owner              = 'root',
+  String  $group              = 'root',
+  String  $mode               = '0644',
   Boolean $include_sysdefault = true,
   Hash    $create_resources   = {},
-) inherits dovecot::params {
+) {
 
   Class['::dovecot::install'] -> ::Dovecot::Configfile <||>
 

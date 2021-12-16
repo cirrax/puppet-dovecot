@@ -9,13 +9,12 @@
 #     Defaults to true
 #   $service_name
 #     The name of the service
-#     Defaults to $dovecot::params::service_name
 #
 class dovecot::service (
   String  $ensure       = 'running',
   Boolean $enable       = true,
-  String  $service_name = $dovecot::params::service_name,
-) inherits dovecot::params {
+  String  $service_name = 'dovecot',
+) {
 
   Package<| tag =='dovecot'  |> -> Service['dovecot']
 

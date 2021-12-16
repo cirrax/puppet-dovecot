@@ -4,15 +4,14 @@
 # Parameters:
 #  $packages:
 #    Array of packages to install
-#    Defaults to $dovecot::params::packages
 #  $package_ensure:
 #    what to ensure for package
 #    Defaults to 'installed'
 #
 class dovecot::install (
-  Array  $packages       = $dovecot::params::packages,
+  Array  $packages       = ['dovecot-core'],
   String $package_ensure = 'installed',
-) inherits dovecot::params {
+) {
 
   package { $packages:
     ensure => $package_ensure,
