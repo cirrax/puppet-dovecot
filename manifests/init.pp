@@ -2,49 +2,49 @@
 # This class installs and cofigures dovecot
 #
 # Parameters:
-#  $main_config        = {},
-#    Hash of configurations to include in the main 
-#    configuration file.
-#    Defaults to {}
-#  $configs
-#    Hash of configs to write
-#    Defaults to {}
-#  $main_config_file
-#    the name of the main configuration file
-#  $config_path
-#    the path where the configuration is.
-#  $local_configdir
-#    the name of a directory to put local
-#    configuration files
-#  $owner
-#    owner of the configuration files
-#  $group
-#    group of the configuration files
-#  $mode
-#    mode of the configuration files
-#  $include_sysdefault = true,
-#    if true (the default) an include statement
-#    in the main configuration file is added to 
-#    include the system defaults before the local
-#    configuration.
-#  $create_resources
-#    a Hash of Hashes to create additional resources eg. to
-#    retrieve a certificate.
-#    Defaults to {} (do not create any additional resources)
-#    Example (hiera):
+# @param main_config        = {},
+#   Hash of configurations to include in the main 
+#   configuration file.
+#   Defaults to {}
+# @param configs
+#   Hash of configs to write
+#   Defaults to {}
+# @param main_config_file
+#   the name of the main configuration file
+# @param config_path
+#   the path where the configuration is.
+# @param local_configdir
+#   the name of a directory to put local
+#   configuration files
+# @param owner
+#   owner of the configuration files
+# @param group
+#   group of the configuration files
+# @param mode
+#   mode of the configuration files
+# @param include_sysdefault = true,
+#   if true (the default) an include statement
+#   in the main configuration file is added to 
+#   include the system defaults before the local
+#   configuration.
+# @param create_resources
+#   a Hash of Hashes to create additional resources eg. to
+#   retrieve a certificate.
+#   Defaults to {} (do not create any additional resources)
+#   Example (hiera):
 #
-#    dovecot::create_resources:
-#        sslcert::get_cert:
-#            get_my_dovecot_cert:
-#              private_key_path: '/etc/dovecot/ssl/key.pem'
-#              cert_path: '/etc/dovecot/ssl/cert.pem'
+#   dovecot::create_resources:
+#       sslcert::get_cert:
+#           get_my_dovecot_cert:
+#             private_key_path: '/etc/dovecot/ssl/key.pem'
+#             cert_path: '/etc/dovecot/ssl/cert.pem'
 #
-#    Will result in  executing:
+#   Will result in  executing:
 #
-#    sslcert::get_cert{'get_my_postfix_cert':
-#      private_key_path => "/etc/dovecot/ssl/key.pem"
-#      cert_path        => "/etc/dovecot/ssl/cert.pem"
-#    }
+#   sslcert::get_cert{'get_my_postfix_cert':
+#     private_key_path => "/etc/dovecot/ssl/key.pem"
+#     cert_path        => "/etc/dovecot/ssl/cert.pem"
+#   }
 #
 class dovecot (
   Hash    $main_config        = {},

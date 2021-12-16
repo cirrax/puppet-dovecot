@@ -1,12 +1,11 @@
 #
 # This class installs dovecot packages
 #
-# Parameters:
-#  $packages:
-#    Array of packages to install
-#  $package_ensure:
-#    what to ensure for package
-#    Defaults to 'installed'
+# @param packages
+#   Array of packages to install
+# @param package_ensure
+#   what to ensure for package
+#   Defaults to 'installed'
 #
 class dovecot::install (
   Array  $packages       = ['dovecot-core'],

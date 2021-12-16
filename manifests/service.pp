@@ -1,14 +1,13 @@
 # manage dovecot service
 #
-# Parameters:
-#   $ensure
-#     Whether a service should be running.
-#     Defaults to 'running'
-#   $enabled
-#     Whether a service should be enabled.
-#     Defaults to true
-#   $service_name
-#     The name of the service
+# @param ensure
+#   Whether a service should be running.
+#   Defaults to 'running'
+# @param enable
+#   Whether a service should be enabled.
+#   Defaults to true
+# @param service_name
+#   The name of the service
 #
 class dovecot::service (
   String  $ensure       = 'running',

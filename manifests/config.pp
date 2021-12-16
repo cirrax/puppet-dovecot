@@ -1,25 +1,24 @@
 # Internal define to handle configuration content
 #
-# Parameters:
-#  $file
-#    the name (including path) of the configuration file
-#    Defaults to $title
-#  $recursion
-#    String to identify the recursion for the sections
-#    For details see code ;(
-#    Defaults to '0'
-#  $trim
-#    integer which gives the amount of spaces used to
-#    ident any configuration added in this iteration of the
-#    recursion. Defauls to 0 
-#  $values
-#    Hash of configuration parameters to include in $filename
-#    Defaults to {}
-#    see ::dovecot for more information
-#  $sections
-#    Array of configuration section to include in $filenmame
-#    Defaults to []
-#    see ::dovecot for more information
+# @param file
+#   the name (including path) of the configuration file
+#   Defaults to $title
+# @param recursion
+#   String to identify the recursion for the sections
+#   For details see code ;(
+#   Defaults to '0'
+# @param trim
+#   integer which gives the amount of spaces used to
+#   ident any configuration added in this iteration of the
+#   recursion. Defauls to 0 
+# @param values
+#   Hash of configuration parameters to include in $filename
+#   Defaults to {}
+#   see ::dovecot for more information
+# @param sections
+#   Array of configuration section to include in $filenmame
+#   Defaults to []
+#   see ::dovecot for more information
 #
 define dovecot::config (
   String  $file      = $title,
