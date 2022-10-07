@@ -75,7 +75,6 @@ class dovecot (
     'owner'           => $owner,
     'group'           => $group,
     'mode'            => $mode,
-    'include_in'      => '',
     'values'          => pick($main_config['values'],{}),
     'sections'        => pick($main_config['sections'],[]),
   }

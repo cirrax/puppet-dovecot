@@ -45,7 +45,6 @@ describe 'dovecot' do
         .with_owner(params[:owner])
         .with_group(params[:group])
         .with_mode(params[:mode])
-        .with_include_in('')
     }
   end
 

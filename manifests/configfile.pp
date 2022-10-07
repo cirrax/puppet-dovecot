@@ -14,7 +14,7 @@
 #   only used if $include_in is not set to ''
 # @param include_in
 #   filename to add an include statement for the configuration
-#   file. Defaults to '' which disables this function
+#   file. Default unset which disables this function
 # @param filename
 #   the name of the configuration file
 #   Defaults to $title
@@ -28,15 +28,15 @@
 #   see ::dovecot for more information
 #
 define dovecot::configfile (
-  String $path,
-  String $owner,
-  String $group,
-  String $mode,
-  String $local_configdir,
-  String $include_in      = '',
-  String $filename        = $title,
-  Hash   $values          = {},
-  Array[Hash] $sections        = [],
+  String              $path,
+  String              $owner,
+  String              $group,
+  String              $mode,
+  String              $local_configdir,
+  Optional[String[1]] $include_in      = undef,
+  String              $filename        = $title,
+  Hash                $values          = {},
+  Array[Hash]         $sections        = [],
 ) {
   concat { "${path}/${filename}":
     owner          => $owner,
@@ -53,7 +53,7 @@ define dovecot::configfile (
     sections => $sections,
   }
 
-  if $include_in != '' {
+  if $include_in {
     concat::fragment { "dovecot: include ${filename} in ${include_in}":
       target  => $include_in,
       content => "!include ${local_configdir}/${filename}",

@@ -326,12 +326,12 @@ only used if $include_in is not set to ''
 
 ##### <a name="include_in"></a>`include_in`
 
-Data type: `String`
+Data type: `Optional[String[1]]`
 
 filename to add an include statement for the configuration
-file. Defaults to '' which disables this function
+file. Default unset which disables this function
 
-Default value: `''`
+Default value: ``undef``
 
 ##### <a name="filename"></a>`filename`
 
