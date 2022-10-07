@@ -278,7 +278,7 @@ For instance the following hash will produce a file in /etc/dovecot/conf.d/maste
 are set to default.  
 **NOTE - the file named will be completely overwritten, so ensure that ALL needed values are specified.**
 
-**Hiera data:**<a name="values_example"></a>
+<a name="values_example"></a>`Example (hiera):`
 
 ```
 dovecot::config:
@@ -309,7 +309,7 @@ These are defined as an Array of hashes similar to the intial config hash:
 Expanding on our previous example, wanting to add an section we can add a 'sections' key to our hash.  
 Each additional section is started with a **-** on its own line and indented correctly.
 
-**Hiera data**<a name="sections_example"></a>
+<a name="sections_example"></a>`Example (hiera):`
 
 ```
 dovecot::config:
@@ -338,7 +338,7 @@ namespace inbox {
 ```
 Some dovecot sections have a double bracket system (section within a section). This is done as follows:
 
-**Hiera data**
+Example (hiera):
 
 ```
 dovecot::config:
