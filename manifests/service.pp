@@ -14,7 +14,6 @@ class dovecot::service (
   Boolean $enable       = true,
   String  $service_name = 'dovecot',
 ) {
-
   Package<| tag =='dovecot'  |> -> Service['dovecot']
 
   service { 'dovecot':
@@ -23,4 +22,3 @@ class dovecot::service (
     name   => $service_name,
   }
 }
-

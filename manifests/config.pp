@@ -27,14 +27,13 @@ define dovecot::config (
   Hash    $values    = {},
   Array[Hash]   $sections  = [],
 ) {
-
   # this fragment handles all non Hash values
   concat::fragment { "dovecot: ${file} ${recursion} vals":
     target  => $file,
     content => epp('dovecot/config.epp', {
-      'values' => $values,
-      'trim'   => $trim
-    } ),
+        'values' => $values,
+        'trim'   => $trim
+    }),
     order   => "50-${recursion}-0",
   }
 
@@ -46,7 +45,7 @@ define dovecot::config (
       content => "${_trim}${section['name']} {",
       order   => "50-${recursion}-${index}-a",
     }
-    ::dovecot::config{"${file} ${recursion}_2_${index}":
+    ::dovecot::config { "${file} ${recursion}_2_${index}":
       file      => $file,
       recursion => "${recursion}-${index}-b",
       values    => pick($sections[$index]['values'],{}),

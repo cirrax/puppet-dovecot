@@ -58,15 +58,14 @@ class dovecot (
   Boolean $include_sysdefault = true,
   Hash    $create_resources   = {},
 ) {
+  Class['dovecot::install'] -> ::Dovecot::Configfile <||>
 
-  Class['::dovecot::install'] -> ::Dovecot::Configfile <||>
-
-  file{ "${config_path}/${local_configdir}":
+  file { "${config_path}/${local_configdir}":
     ensure  => 'directory',
     owner   => $owner,
     group   => $group,
     mode    => '0755',
-    require => Class['::dovecot::install'],
+    require => Class['dovecot::install'],
   }
 
   $main_file_defaults = {
@@ -90,14 +89,14 @@ class dovecot (
     'include_in'      => "${config_path}/${main_config_file}",
   }
 
-  include ::dovecot::install
+  include dovecot::install
 
-  create_resources('::dovecot::configfile', { 'main_config' => {} } , $main_file_defaults)
+  create_resources('::dovecot::configfile', { 'main_config' => {} }, $main_file_defaults)
   create_resources('::dovecot::configfile', $configs, $file_defaults)
 
-  include ::dovecot::service
+  include dovecot::service
 
-  if $include_sysdefault  {
+  if $include_sysdefault {
     concat::fragment { 'dovecot: include system defaults':
       target  => "${config_path}/${main_config_file}",
       content => '!include conf.d/*',
@@ -107,7 +106,6 @@ class dovecot (
 
   # create generic resources (eg. to retrieve certificate)
   $create_resources.each | $res, $vals | {
-    create_resources($res, $vals, { 'require' => Class['dovecot::install'] } )
+    create_resources($res, $vals, { 'require' => Class['dovecot::install'] })
   }
 }
-

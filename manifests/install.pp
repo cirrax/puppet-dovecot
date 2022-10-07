@@ -11,10 +11,8 @@ class dovecot::install (
   Array  $packages       = ['dovecot-core'],
   String $package_ensure = 'installed',
 ) {
-
   package { $packages:
     ensure => $package_ensure,
     tag    => 'dovecot',
   }
 }
-

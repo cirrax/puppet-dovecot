@@ -38,17 +38,16 @@ define dovecot::configfile (
   Hash   $values          = {},
   Array[Hash] $sections        = [],
 ) {
-
   concat { "${path}/${filename}":
     owner          => $owner,
     group          => $group,
     mode           => $mode,
     warn           => true,
-    notify         => Service[ 'dovecot'],
+    notify         => Service['dovecot'],
     ensure_newline => true,
   }
 
-  ::dovecot::config{ $filename :
+  ::dovecot::config { $filename :
     file     => "${path}/${filename}",
     values   => $values,
     sections => $sections,
@@ -62,4 +61,3 @@ define dovecot::configfile (
     }
   }
 }
-
