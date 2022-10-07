@@ -279,6 +279,7 @@ are set to default.
 **NOTE - the file named will be completely overwritten, so ensure that ALL needed values are specified.**
 
 **Hiera data:**<a name="values_example"></a>
+
 ```
 dovecot::config:
   'master.conf':                     # <- name ($filename)
