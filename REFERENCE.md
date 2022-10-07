@@ -128,18 +128,22 @@ retrieve a certificate.
 Defaults to {} (do not create any additional resources)
 Example (hiera):
 
+```
 dovecot::create_resources:
     sslcert::get_cert:
         get_my_dovecot_cert:
           private_key_path: '/etc/dovecot/ssl/key.pem'
           cert_path: '/etc/dovecot/ssl/cert.pem'
+```
 
 Will result in  executing:
 
+```
 sslcert::get_cert{'get_my_postfix_cert':
   private_key_path => "/etc/dovecot/ssl/key.pem"
   cert_path        => "/etc/dovecot/ssl/cert.pem"
 }
+```
 
 Default value: `{}`
 
@@ -159,6 +163,17 @@ The following parameters are available in the `dovecot::install` class:
 Data type: `Array`
 
 Array of packages to install
+
+Example (hiera):
+
+```
+dovecot::install:  
+  - dovecot-core  
+  - dovecot-imapd  
+  - dovecot-pop3d  
+```
+
+Will install current versions of dovecot-core,dovecot-imapd and dovecot-pop3d
 
 Default value: `['dovecot-core']`
 
@@ -258,9 +273,29 @@ Default value: `0`
 
 Data type: `Hash`
 
-Hash of configuration parameters to include in $filename
-Defaults to {}
-see ::dovecot for more information
+The hash it expects needs name which corresponds to the $filename saved in $config_path/$local_configdir/
+For instance the following hash will produce a file in /etc/dovecot/conf.d/master.conf if $config_path and $local_configdir
+are set to default.  
+**NOTE - the file named will be completely overwritten, so ensure that ALL needed values are specified.**
+
+**Hiera data:**<a name="values_example"></a>
+```
+dovecot::config:
+  'master.conf':                     # <- name ($filename)
+    values:
+      default_process_limit: 351
+      default_vsz_limit: 1028M
+      default_client_limit: 2103
+```
+
+The resulting **/etc/dovecot/conf.d/master.conf** will look like this:
+
+```
+This file is managed by Puppet. DO NOT EDIT.
+default_client_limit = 2103
+default_process_limit = 351
+default_vsz_limit = 1028M
+```
 
 Default value: `{}`
 
@@ -268,9 +303,105 @@ Default value: `{}`
 
 Data type: `Array[Hash]`
 
-Array of configuration section to include in $filenmame
-Defaults to []
-see ::dovecot for more information
+Sometimes you need to have [Sections](https://doc.dovecot.org/configuration_manual/config_file/#sections) in your config files
+These are defined as an Array of hashes similar to the intial config hash:
+Expanding on our previous example, wanting to add an section we can add a 'sections' key to our hash.  
+Each additional section is started with a **-** on its own line and indented correctly.
+
+**Hiera data**<a name="sections_example"></a>
+
+```
+dovecot::config:
+  'mail.conf':
+    values:
+       'mail_location': 'maildir:~/'
+    sections:
+      -                        # <- Section starts ( $name { $values } )
+        name: 'namespace inbox'
+        values:
+          'inbox': 'yes'
+          'seperator': '.'
+          'prefix': 'INBOX'
+```
+
+This will result in **/etc/dovecot/conf.d/mail.conf** containing the following:
+
+```
+This file is managed by Puppet. DO NOT EDIT.
+mail_location = maildir:~/
+namespace inbox {
+  inbox = yes
+  separator =.
+  prefix =INBOX.
+}
+```
+Some dovecot sections have a double bracket system (section within a section). This is done as follows:
+
+**Hiera data**
+
+```
+dovecot::config:
+  'master.conf':
+    values:
+      default_process_limit: 351
+      default_vsz_limit: 1028M
+      default_client_limit: 2103
+    sections:
+      -
+        name: 'service imap-login'
+        sections:
+          -
+            name: 'inet_listener imap'
+            values:
+              'port': '143'
+          -
+            name: inet_listener imaps
+            values:
+              'port': '993'
+              'ssl': 'yes'
+      -
+        name: 'service pop3-login'
+        sections:
+          -
+            name: 'inet_listener pop3'
+            values:
+              'port': '110'
+          -
+            name: inet_listener pop3s
+            values:
+              'port': '995'
+              'ssl': 'yes'
+```
+
+will produce the file **/etc/dovecot/conf.d/master.conf** with content below:
+
+```
+This file is managed by Puppet. DO NOT EDIT.
+default_client_limit = 2103
+default_process_limit = 351
+default_vsz_limit = 1028M
+service imap-login {
+
+ inet_listener imap {
+   port = 143
+ }
+ inet_listener imaps {
+   port = 993
+   ssl = yes
+ }
+}
+service pop3-login {
+
+ inet_listener pop3 {
+   port = 110
+ }
+ inet_listener pop3s {
+   port = 995
+   ssl = yes
+ }
+}
+
+```
 
 Default value: `[]`
 
@@ -348,7 +479,7 @@ Data type: `Hash`
 
 Hash of configuration parameters to include in $filename
 Defaults to {}
-see ::dovecot for more information
+see previous [`values`](#values_example) example
 
 Default value: `{}`
 
@@ -358,7 +489,7 @@ Data type: `Array[Hash]`
 
 Array of configuration section to include in $filenmame
 Defaults to []
-see ::dovecot for more information
+see previous [`sections`](#sections_example) example
 
 Default value: `[]`
 
