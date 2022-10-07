@@ -42,7 +42,6 @@ The following parameters are available in the `dovecot` class:
 
 Data type: `Hash`
 
-= {},
 Hash of configurations to include in the main
 configuration file.
 Defaults to {}

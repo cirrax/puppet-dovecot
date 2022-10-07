@@ -2,7 +2,7 @@
 # This class installs and cofigures dovecot
 #
 # Parameters:
-# @param main_config        = {},
+# @param main_config
 #   Hash of configurations to include in the main 
 #   configuration file.
 #   Defaults to {}
