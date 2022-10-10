@@ -27,7 +27,6 @@
 #   Defaults to []
 #   see previous [`sections`](#sections_example) example
 #
-close #3
 
 define dovecot::configfile (
   String              $path,
@@ -63,3 +62,5 @@ define dovecot::configfile (
     }
   }
 }
+
+# close #3
