@@ -63,4 +63,3 @@ define dovecot::configfile (
   }
 }
 
-#close #3
