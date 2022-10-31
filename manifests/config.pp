@@ -43,7 +43,6 @@
 #   in your config files.  
 #   These are defined as an Array of hashes similar to the intial config hash:  
 #   Expanding on our previous example, wanting to add an section we can add a 'sections' key to our hash.  
-#   Each additional section is started with a **-** on its own line and indented correctly.
 #
 #   <a name="sections_example"></a>`Example (hiera):`
 #
