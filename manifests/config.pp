@@ -17,7 +17,6 @@
 #   and $local_configdir are set to default.
 #   **NOTE - the file named will be completely overwritten, so ensure that ALL needed values are specified.**
 #
-#   <a name="values_example"></a>`Example (hiera):`
 #
 #   ```
 #   dovecot::config:
@@ -43,8 +42,6 @@
 #   in your config files.  
 #   These are defined as an Array of hashes similar to the intial config hash:  
 #   Expanding on our previous example, wanting to add a section we can add a 'sections' key to our hash.  
-#
-#   <a name="sections_example"></a>`Example (hiera):`
 #
 #   ```
 #   dovecot::config:
