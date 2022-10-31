@@ -85,8 +85,7 @@
 #         default_vsz_limit: 1024M
 #         default_client_limit: 2100
 #       sections:
-#         -
-#           name: 'service imap-login'
+#         - name: 'service imap-login'
 #           sections:
 #             -
 #               name: 'inet_listener imap'
