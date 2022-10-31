@@ -49,12 +49,11 @@
 #
 #   ```
 #   dovecot::config:
-#     'mail.conf':
+#     mail.conf:
 #       values:
 #         'mail_location': 'maildir:~/'
 #       sections:
-#         - 
-#           name: 'namespace inbox'
+#         - name: 'namespace inbox'
 #           values:
 #             'inbox': 'yes'
 #             'seperator': '.'
@@ -79,7 +78,7 @@
 #
 #   ```
 #   dovecot::config:
-#     'master.conf':
+#     master.conf:
 #       values:
 #         default_process_limit: 350
 #         default_vsz_limit: 1024M
@@ -87,21 +86,17 @@
 #       sections:
 #         - name: 'service imap-login'
 #           sections:
-#             -
-#               name: 'inet_listener imap'
+#             - name: 'inet_listener imap'
 #               values:
 #                 'port': '143'
-#             -
-#               name: inet_listener imaps
+#             - name: inet_listener imaps
 #               values:
 #                 'port': '993'
 #                 'ssl': 'yes'
-#             -
-#               name: 'inet_listener pop3'
+#             - name: 'inet_listener pop3'
 #               values:
 #                 'port': '110'
-#             -
-#               name: inet_listener pop3s
+#             - name: inet_listener pop3s
 #               values:
 #                 'port': '995'
 #                 'ssl': 'yes'
