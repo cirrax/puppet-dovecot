@@ -42,7 +42,7 @@
 #   Sometimes you need to have [Sections](https://doc.dovecot.org/configuration_manual/config_file/#sections) 
 #   in your config files.  
 #   These are defined as an Array of hashes similar to the intial config hash:  
-#   Expanding on our previous example, wanting to add an section we can add a 'sections' key to our hash.  
+#   Expanding on our previous example, wanting to add a section we can add a 'sections' key to our hash.  
 #
 #   <a name="sections_example"></a>`Example (hiera):`
 #
