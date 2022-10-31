@@ -53,7 +53,7 @@
 #       values:
 #         'mail_location': 'maildir:~/'
 #       sections:
-#         -                        # <- Section starts ( $name { $values } )
+#         - 
 #           name: 'namespace inbox'
 #           values:
 #             'inbox': 'yes'
