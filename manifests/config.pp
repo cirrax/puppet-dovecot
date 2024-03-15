@@ -156,8 +156,8 @@ define dovecot::config (
     ::dovecot::config { "${file} ${recursion}_2_${index}":
       file      => $file,
       recursion => "${recursion}-${index}-b",
-      values    => pick($sections[$index]['values'],{}),
-      sections  => pick($sections[$index]['sections'],[]),
+      values    => pick($sections[$index]['values'], {}),
+      sections  => pick($sections[$index]['sections'], []),
       trim      => $trim + 2,
     }
     concat::fragment { "dovecot: ${file} ${recursion} ${index} end":

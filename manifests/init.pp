@@ -75,8 +75,8 @@ class dovecot (
     'owner'           => $owner,
     'group'           => $group,
     'mode'            => $mode,
-    'values'          => pick($main_config['values'],{}),
-    'sections'        => pick($main_config['sections'],[]),
+    'values'          => pick($main_config['values'], {}),
+    'sections'        => pick($main_config['sections'], []),
   }
 
   $file_defaults = {
