@@ -4,7 +4,7 @@
 # @param packages
 #   Array of packages to install
 #   Example (hiera):  
-#     dovecot::install:  
+#     dovecot::install::packages:  
 #       - dovecot-core  
 #       - dovecot-imapd  
 #       - dovecot-pop3d  
