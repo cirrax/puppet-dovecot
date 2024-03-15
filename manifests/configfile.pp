@@ -21,12 +21,13 @@
 # @param values
 #   Hash of configuration parameters to include in $filename
 #   Defaults to {}
-#   see ::dovecot for more information
+#   see previous [`values`](#values_example) example
 # @param sections
 #   Array of configuration section to include in $filenmame
 #   Defaults to []
-#   see ::dovecot for more information
+#   see previous [`sections`](#sections_example) example
 #
+
 define dovecot::configfile (
   String              $path,
   String              $owner,
@@ -61,3 +62,4 @@ define dovecot::configfile (
     }
   }
 }
+
