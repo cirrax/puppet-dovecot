@@ -7,13 +7,13 @@
 ### Classes
 
 * [`dovecot`](#dovecot): This class installs and cofigures dovecot  Parameters:
-* [`dovecot::install`](#dovecotinstall): This class installs dovecot packages
-* [`dovecot::service`](#dovecotservice): manage dovecot service
+* [`dovecot::install`](#dovecot--install): This class installs dovecot packages   Will install current versions of dovecot-core,dovecot-imapd and dovecot-pop3d
+* [`dovecot::service`](#dovecot--service): manage dovecot service
 
 ### Defined types
 
-* [`dovecot::config`](#dovecotconfig): Internal define to handle configuration content
-* [`dovecot::configfile`](#dovecotconfigfile): Internal define to create a configuration file and include it in the main config file
+* [`dovecot::config`](#dovecot--config): Internal define to handle configuration content
+* [`dovecot::configfile`](#dovecot--configfile): Internal define to create a configuration file and include it in the main config file
 
 ## Classes
 
@@ -27,18 +27,18 @@ Parameters:
 
 The following parameters are available in the `dovecot` class:
 
-* [`main_config`](#main_config)
-* [`configs`](#configs)
-* [`main_config_file`](#main_config_file)
-* [`config_path`](#config_path)
-* [`local_configdir`](#local_configdir)
-* [`owner`](#owner)
-* [`group`](#group)
-* [`mode`](#mode)
-* [`include_sysdefault`](#include_sysdefault)
-* [`create_resources`](#create_resources)
+* [`main_config`](#-dovecot--main_config)
+* [`configs`](#-dovecot--configs)
+* [`main_config_file`](#-dovecot--main_config_file)
+* [`config_path`](#-dovecot--config_path)
+* [`local_configdir`](#-dovecot--local_configdir)
+* [`owner`](#-dovecot--owner)
+* [`group`](#-dovecot--group)
+* [`mode`](#-dovecot--mode)
+* [`include_sysdefault`](#-dovecot--include_sysdefault)
+* [`create_resources`](#-dovecot--create_resources)
 
-##### <a name="main_config"></a>`main_config`
+##### <a name="-dovecot--main_config"></a>`main_config`
 
 Data type: `Hash`
 
@@ -48,7 +48,7 @@ Defaults to {}
 
 Default value: `{}`
 
-##### <a name="configs"></a>`configs`
+##### <a name="-dovecot--configs"></a>`configs`
 
 Data type: `Hash`
 
@@ -57,7 +57,7 @@ Defaults to {}
 
 Default value: `{}`
 
-##### <a name="main_config_file"></a>`main_config_file`
+##### <a name="-dovecot--main_config_file"></a>`main_config_file`
 
 Data type: `String`
 
@@ -65,7 +65,7 @@ the name of the main configuration file
 
 Default value: `'dovecot.conf'`
 
-##### <a name="config_path"></a>`config_path`
+##### <a name="-dovecot--config_path"></a>`config_path`
 
 Data type: `String`
 
@@ -73,7 +73,7 @@ the path where the configuration is.
 
 Default value: `'/etc/dovecot'`
 
-##### <a name="local_configdir"></a>`local_configdir`
+##### <a name="-dovecot--local_configdir"></a>`local_configdir`
 
 Data type: `String`
 
@@ -82,7 +82,7 @@ configuration files
 
 Default value: `'conf.d'`
 
-##### <a name="owner"></a>`owner`
+##### <a name="-dovecot--owner"></a>`owner`
 
 Data type: `String`
 
@@ -90,7 +90,7 @@ owner of the configuration files
 
 Default value: `'root'`
 
-##### <a name="group"></a>`group`
+##### <a name="-dovecot--group"></a>`group`
 
 Data type: `String`
 
@@ -98,7 +98,7 @@ group of the configuration files
 
 Default value: `'root'`
 
-##### <a name="mode"></a>`mode`
+##### <a name="-dovecot--mode"></a>`mode`
 
 Data type: `String`
 
@@ -106,7 +106,7 @@ mode of the configuration files
 
 Default value: `'0644'`
 
-##### <a name="include_sysdefault"></a>`include_sysdefault`
+##### <a name="-dovecot--include_sysdefault"></a>`include_sysdefault`
 
 Data type: `Boolean`
 
@@ -116,9 +116,9 @@ in the main configuration file is added to
 include the system defaults before the local
 configuration.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="create_resources"></a>`create_resources`
+##### <a name="-dovecot--create_resources"></a>`create_resources`
 
 Data type: `Hash`
 
@@ -142,26 +142,33 @@ sslcert::get_cert{'get_my_postfix_cert':
 
 Default value: `{}`
 
-### <a name="dovecotinstall"></a>`dovecot::install`
+### <a name="dovecot--install"></a>`dovecot::install`
 
 This class installs dovecot packages
+
+ Will install current versions of dovecot-core,dovecot-imapd and dovecot-pop3d
 
 #### Parameters
 
 The following parameters are available in the `dovecot::install` class:
 
-* [`packages`](#packages)
-* [`package_ensure`](#package_ensure)
+* [`packages`](#-dovecot--install--packages)
+* [`package_ensure`](#-dovecot--install--package_ensure)
 
-##### <a name="packages"></a>`packages`
+##### <a name="-dovecot--install--packages"></a>`packages`
 
 Data type: `Array`
 
 Array of packages to install
+Example (hiera):
+  dovecot::install::packages:
+    - dovecot-core
+    - dovecot-imapd
+    - dovecot-pop3d
 
 Default value: `['dovecot-core']`
 
-##### <a name="package_ensure"></a>`package_ensure`
+##### <a name="-dovecot--install--package_ensure"></a>`package_ensure`
 
 Data type: `String`
 
@@ -170,7 +177,7 @@ Defaults to 'installed'
 
 Default value: `'installed'`
 
-### <a name="dovecotservice"></a>`dovecot::service`
+### <a name="dovecot--service"></a>`dovecot::service`
 
 manage dovecot service
 
@@ -178,11 +185,11 @@ manage dovecot service
 
 The following parameters are available in the `dovecot::service` class:
 
-* [`ensure`](#ensure)
-* [`enable`](#enable)
-* [`service_name`](#service_name)
+* [`ensure`](#-dovecot--service--ensure)
+* [`enable`](#-dovecot--service--enable)
+* [`service_name`](#-dovecot--service--service_name)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-dovecot--service--ensure"></a>`ensure`
 
 Data type: `String`
 
@@ -191,16 +198,16 @@ Defaults to 'running'
 
 Default value: `'running'`
 
-##### <a name="enable"></a>`enable`
+##### <a name="-dovecot--service--enable"></a>`enable`
 
 Data type: `Boolean`
 
 Whether a service should be enabled.
 Defaults to true
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="service_name"></a>`service_name`
+##### <a name="-dovecot--service--service_name"></a>`service_name`
 
 Data type: `String`
 
@@ -210,7 +217,7 @@ Default value: `'dovecot'`
 
 ## Defined types
 
-### <a name="dovecotconfig"></a>`dovecot::config`
+### <a name="dovecot--config"></a>`dovecot::config`
 
 Internal define to handle configuration content
 
@@ -218,13 +225,13 @@ Internal define to handle configuration content
 
 The following parameters are available in the `dovecot::config` defined type:
 
-* [`file`](#file)
-* [`recursion`](#recursion)
-* [`trim`](#trim)
-* [`values`](#values)
-* [`sections`](#sections)
+* [`file`](#-dovecot--config--file)
+* [`recursion`](#-dovecot--config--recursion)
+* [`trim`](#-dovecot--config--trim)
+* [`values`](#-dovecot--config--values)
+* [`sections`](#-dovecot--config--sections)
 
-##### <a name="file"></a>`file`
+##### <a name="-dovecot--config--file"></a>`file`
 
 Data type: `String`
 
@@ -233,7 +240,7 @@ Defaults to $title
 
 Default value: `$title`
 
-##### <a name="recursion"></a>`recursion`
+##### <a name="-dovecot--config--recursion"></a>`recursion`
 
 Data type: `String`
 
@@ -243,7 +250,7 @@ Defaults to '0'
 
 Default value: `'0'`
 
-##### <a name="trim"></a>`trim`
+##### <a name="-dovecot--config--trim"></a>`trim`
 
 Data type: `Integer`
 
@@ -253,27 +260,134 @@ recursion. Defauls to 0
 
 Default value: `0`
 
-##### <a name="values"></a>`values`
+##### <a name="-dovecot--config--values"></a>`values`
 
 Data type: `Hash`
 
-Hash of configuration parameters to include in $filename
+The hash it expects needs name which corresponds to the $filename saved in $config_path/$local_configdir/
+For instance the following hash will produce a file in /etc/dovecot/conf.d/master.conf if $config_path
+and $local_configdir are set to default.
+**NOTE - the file named will be completely overwritten, so ensure that ALL needed values are specified.**
+
+```
+dovecot::config:
+  'master.conf':                     # <- name ($filename)
+    values:
+      default_process_limit: 350
+      default_vsz_limit: 1024M
+      default_client_limit: 2000
+```
+
+The resulting **/etc/dovecot/conf.d/master.conf** will look like this:
+
+```
+This file is managed by Puppet. DO NOT EDIT.
+default_client_limit = 2000
+default_process_limit = 350
+default_vsz_limit = 1024M
+```
+
 Defaults to {}
-see ::dovecot for more information
 
 Default value: `{}`
 
-##### <a name="sections"></a>`sections`
+##### <a name="-dovecot--config--sections"></a>`sections`
 
 Data type: `Array[Hash]`
 
-Array of configuration section to include in $filenmame
+Sometimes you need to have [Sections](https://doc.dovecot.org/configuration_manual/config_file/#sections)
+in your config files.
+These are defined as an Array of hashes similar to the intial config hash:
+Expanding on our previous example, wanting to add a section we can add a 'sections' key to our hash.
+
+```
+dovecot::config:
+  mail.conf:
+    values:
+      'mail_location': 'maildir:~/'
+    sections:
+      - name: 'namespace inbox'
+        values:
+          'inbox': 'yes'
+          'seperator': '.'
+          'prefix': 'INBOX'
+```
+
+This will result in **/etc/dovecot/conf.d/mail.conf** containing the following:
+
+```
+This file is managed by Puppet. DO NOT EDIT.
+mail_location = maildir:~/
+namespace inbox {
+  inbox = yes
+  separator =.
+  prefix =INBOX.
+}
+```
+
+Some dovecot sections have a double bracket system (section within a section). This is done as follows:
+
+Example (hiera):
+
+```
+dovecot::config:
+  master.conf:
+    values:
+      default_process_limit: 350
+      default_vsz_limit: 1024M
+      default_client_limit: 2100
+    sections:
+      - name: 'service imap-login'
+        sections:
+          - name: 'inet_listener imap'
+            values:
+              'port': '143'
+          - name: inet_listener imaps
+            values:
+              'port': '993'
+              'ssl': 'yes'
+          - name: 'inet_listener pop3'
+            values:
+              'port': '110'
+          - name: inet_listener pop3s
+            values:
+              'port': '995'
+              'ssl': 'yes'
+```
+This will produce the file **/etc/dovecot/conf.d/master.conf** with content below:
+
+```
+This file is managed by Puppet. DO NOT EDIT.
+default_client_limit = 2100
+default_process_limit = 350
+default_vsz_limit = 1024M
+service imap-login {
+
+  inet_listener imap {
+    port = 143
+  }
+  inet_listener imaps {
+    port = 993
+    ssl = yes
+  }
+}
+service pop3-login {
+
+  inet_listener pop3 {
+    port = 110
+  }
+  inet_listener pop3s {
+    port = 995
+    ssl = yes
+  }
+}
+```
+
 Defaults to []
-see ::dovecot for more information
 
 Default value: `[]`
 
-### <a name="dovecotconfigfile"></a>`dovecot::configfile`
+### <a name="dovecot--configfile"></a>`dovecot::configfile`
 
 Internal define to create a configuration file
 and include it in the main config file
@@ -282,57 +396,57 @@ and include it in the main config file
 
 The following parameters are available in the `dovecot::configfile` defined type:
 
-* [`path`](#path)
-* [`owner`](#owner)
-* [`group`](#group)
-* [`mode`](#mode)
-* [`local_configdir`](#local_configdir)
-* [`include_in`](#include_in)
-* [`filename`](#filename)
-* [`values`](#values)
-* [`sections`](#sections)
+* [`path`](#-dovecot--configfile--path)
+* [`owner`](#-dovecot--configfile--owner)
+* [`group`](#-dovecot--configfile--group)
+* [`mode`](#-dovecot--configfile--mode)
+* [`local_configdir`](#-dovecot--configfile--local_configdir)
+* [`include_in`](#-dovecot--configfile--include_in)
+* [`filename`](#-dovecot--configfile--filename)
+* [`values`](#-dovecot--configfile--values)
+* [`sections`](#-dovecot--configfile--sections)
 
-##### <a name="path"></a>`path`
+##### <a name="-dovecot--configfile--path"></a>`path`
 
 Data type: `String`
 
 path to the configuration file
 
-##### <a name="owner"></a>`owner`
+##### <a name="-dovecot--configfile--owner"></a>`owner`
 
 Data type: `String`
 
 owner of the configuration file
 
-##### <a name="group"></a>`group`
+##### <a name="-dovecot--configfile--group"></a>`group`
 
 Data type: `String`
 
 group of the configuration file
 
-##### <a name="mode"></a>`mode`
+##### <a name="-dovecot--configfile--mode"></a>`mode`
 
 Data type: `String`
 
 mode of the configuration file
 
-##### <a name="local_configdir"></a>`local_configdir`
+##### <a name="-dovecot--configfile--local_configdir"></a>`local_configdir`
 
 Data type: `String`
 
 directory name where the local configuration is
 only used if $include_in is not set to ''
 
-##### <a name="include_in"></a>`include_in`
+##### <a name="-dovecot--configfile--include_in"></a>`include_in`
 
 Data type: `Optional[String[1]]`
 
 filename to add an include statement for the configuration
 file. Default unset which disables this function
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="filename"></a>`filename`
+##### <a name="-dovecot--configfile--filename"></a>`filename`
 
 Data type: `String`
 
@@ -341,23 +455,23 @@ Defaults to $title
 
 Default value: `$title`
 
-##### <a name="values"></a>`values`
+##### <a name="-dovecot--configfile--values"></a>`values`
 
 Data type: `Hash`
 
 Hash of configuration parameters to include in $filename
 Defaults to {}
-see ::dovecot for more information
+see previous [`values`](#values_example) example
 
 Default value: `{}`
 
-##### <a name="sections"></a>`sections`
+##### <a name="-dovecot--configfile--sections"></a>`sections`
 
 Data type: `Array[Hash]`
 
 Array of configuration section to include in $filenmame
 Defaults to []
-see ::dovecot for more information
+see previous [`sections`](#sections_example) example
 
 Default value: `[]`
 
